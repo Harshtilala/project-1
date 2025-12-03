@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $table="orders";
+    protected $table = "orders";
     protected $fillable = [
         'department',
         'type',
@@ -19,8 +19,13 @@ class Order extends Model
         'silver_price',
         'delivery_date',
         'remark',
+        'status',
     ];
 
+    protected $casts = [
+        'date' => 'datetime', // or 'date' if you only need Y-m-d
+        'delivery_date' => 'datetime',
+    ];
     public function items()
     {
         return $this->hasMany(OrderItem::class);

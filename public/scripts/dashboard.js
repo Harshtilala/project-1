@@ -45,9 +45,9 @@
   mo.observe(document.body, { childList:true, subtree:true });
 
   // Select change handlers
-  themePresetSel?.addEventListener('change', (e)=> applyTheme(e.target.value));
-  sidebarStyleSel?.addEventListener('change', (e)=> applySidebarStyle(e.target.value));
-  elevSel?.addEventListener('change', (e)=> applyElevation(e.target.value));
+  // themePresetSel?.addEventListener('change', (e)=> applyTheme(e.target.value));  
+  // sidebarStyleSel?.addEventListener('change', (e)=> applySidebarStyle(e.target.value));
+  // elevSel?.addEventListener('change', (e)=> applyElevation(e.target.value));
 
   // Sidebar dropdown accordion: only one open at a time on desktop
   const groups = $$('.menu-group');

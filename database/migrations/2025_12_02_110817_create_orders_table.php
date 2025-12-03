@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('delivery_date')->nullable();
             $table->text('remark')->nullable();
             $table->timestamps();
+            $table->boolean('status')->default(0);
+
+
         });
     }
 

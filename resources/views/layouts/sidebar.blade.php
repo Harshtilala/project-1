@@ -29,7 +29,7 @@
             <a href="#city" class="submenu-item" data-icon="🏙️">City</a>
             <a href="#demo" class="submenu-item" data-icon="🧪">Demo</a>
             <hr class="submenu-sep" />
-            <a href="#add-item" class="submenu-item" data-icon="➕">Add Item</a>
+            <a href="{{ route('item.index') }}" class="submenu-item" data-icon="➕">Add Item</a>
             <a href="#item-list" class="submenu-item" data-icon="📃">Item List</a>
           </div>
         </details>
@@ -49,7 +49,7 @@
           <summary class="nav-item">Order</summary>
           <div class="submenu">
             <a href="{{ route('order.create') }}" class="submenu-item" data-icon="➕">Add Order</a>
-            <a href="#order-list" class="submenu-item" data-icon="📋">Order List</a>
+            <a href="{{ route('order.index') }}" class="submenu-item" data-icon="📋">Order List</a>
             <a href="#order-list-new" class="submenu-item" data-icon="🆕">Order List New</a>
             <a href="#inquiry-list" class="submenu-item" data-icon="❓">Inquiry List</a>
             <a href="#order-item-list" class="submenu-item" data-icon="🧾">Order Item List</a>
