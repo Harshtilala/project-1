@@ -190,7 +190,7 @@
                                 <i class="fas fa-building"></i>
                                 <select id="department" class="form-control">
                                     <option value="">All Departments</option>
-                                    <option value="gold">Jewelry</option>
+                                    <option value="gold">Gold</option>
                                     <option value="silver">silver</option>
                                     <option value="diamond">diamond</option>
                                 </select>
@@ -198,7 +198,7 @@
                         </div>
 
                         <!-- Category -->
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="category"
                                 style="color: black; font-weight: bold; font-size: 15px;">Category</label>
                             <div class="select-container">
@@ -210,10 +210,10 @@
                                     <option value="bracelets">Bracelets</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <!-- Item -->
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="item" style="color: black; font-weight: bold; font-size: 15px;">Item</label>
                             <div class="select-container">
                                 <i class="fas fa-box-open"></i>
@@ -224,7 +224,7 @@
                                     <option value="silver-bracelet">Silver Bracelet</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <!-- Status -->
                         <div class="form-group">
@@ -233,16 +233,16 @@
                                 <i class="fas fa-info-circle"></i>
                                 <select id="status" class="form-control">
                                     <option value="">All Status</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="processing">Processing</option>
-                                    <option value="completed">Completed</option>
-                                    <option value="cancelled">Cancelled</option>
+                                    <option value="0">Pending</option>
+                                    {{-- <option value="processing">Processing</option> --}}
+                                    <option value="1">Completed</option>
+                                    {{-- <option value="cancelled">Cancelled</option> --}}
                                 </select>
                             </div>
                         </div>
 
                         <!-- Type -->
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="type" style="color: black; font-weight: bold; font-size: 15px;">Type</label>
                             <div class="select-container">
                                 <i class="fas fa-tag"></i>
@@ -253,38 +253,38 @@
                                     <option value="custom">Custom</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <!-- From Date -->
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="fromDate" style="color: black; font-weight: bold; font-size: 15px;">From
                                 Date</label>
                             <input type="date" id="fromDate" class="form-control">
-                        </div>
+                        </div> --}}
 
                         <!-- To Date -->
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="toDate" style="color: black; font-weight: bold; font-size: 15px;">To
                                 Date</label>
                             <input type="date" id="toDate" class="form-control">
-                        </div>
+                        </div> --}}
 
                         <!-- Delivery From Date -->
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="deliveryFromDate"
                                 style="color: black; font-weight: bold; font-size: 15px;">Delivery From Date</label>
                             <input type="date" id="deliveryFromDate" class="form-control">
-                        </div>
+                        </div> --}}
 
                         <!-- Delivery To Date -->
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="deliveryToDate"
                                 style="color: black; font-weight: bold; font-size: 15px;">Delivery To Date</label>
                             <input type="date" id="deliveryToDate" class="form-control">
-                        </div>
+                        </div> --}}
 
                         <!-- Supplier -->
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="supplier"
                                 style="color: black; font-weight: bold; font-size: 15px;">Supplier</label>
                             <div class="select-container">
@@ -296,7 +296,7 @@
                                     <option value="supplier3">Supplier C</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <!-- Form Actions -->
@@ -341,9 +341,9 @@
 
             <!-- Additional Filter Section -->
             <div class="form-section mt-4" id="additionalFiltersSection" style="display: none;">
-                <h2 style="color: black; font-weight: bold; font-size: 20px;"><i class="fas fa-filter"></i>
-                    Additional Filters</h2>
-                <form id="additionalFilterForm">
+                {{-- <h2 style="color: black; font-weight: bold; font-size: 20px;"><i class="fas fa-filter"></i>
+                    Additional Filters</h2> --}}
+                {{-- <form id="additionalFilterForm">
                     <div class="form-grid">
                         <!-- Department -->
                         <div class="form-group">
@@ -375,7 +375,7 @@
                             </div>
                         </div>
 
-                        <!-- Item -->
+                        <!--   -->
                         <div class="form-group">
                             <label for="item2" style="color: black; font-weight: bold; font-size: 15px;">Item</label>
                             <div class="select-container">
@@ -478,7 +478,7 @@
                             <i class="fas fa-search me-1"></i>Search
                         </button>
                     </div>
-                </form>
+                </form> --}}
             </div>
         </div>
     </main>
@@ -528,7 +528,21 @@
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false }, // Index column
-                { data: 'date', name: 'date' },
+                { 
+                data: 'date', 
+                name: 'date',
+                render: function(data, type, row) {
+                if (data) {
+                // Format using JavaScript Date object
+                let d = new Date(data);
+                let day = ("0" + d.getDate()).slice(-2);
+                let month = ("0" + (d.getMonth() + 1)).slice(-2);
+                let year = d.getFullYear();
+                return `${day}-${month}-${year}`; // e.g., 03-12-2025
+            }
+            return '';
+        }
+    },
                 { data: 'to_supplier', name: 'to_supplier' },
                 { data: 'item', name: 'item' },
                 { data: 'total', name: 'total' },

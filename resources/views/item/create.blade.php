@@ -321,7 +321,11 @@
                         </div>
 
                         <!-- Action Buttons -->
-                        <div class="d-flex justify-content-end gap-2">
+                        <div class="d-flex justify-content-end gap-2 mt-4">
+                            <a href="{{ route('order.index') }}" class="btn btn-secondary ">
+                                ← Back
+                            </a>
+
                             <button type="button" class="btn" onclick="resetForm()"
                                 style="background-color: #b91c1c; color: white; padding: 8px 20px; border: none; border-radius: 6px; font-weight: 700; min-width: 65px;">
                                 <i class="fas fa-undo me-1"></i>Reset

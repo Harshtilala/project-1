@@ -25,6 +25,8 @@ class Order extends Model
     protected $casts = [
         'date' => 'datetime', // or 'date' if you only need Y-m-d
         'delivery_date' => 'datetime',
+        'real_delivery_date' => 'datetime',
+        'order_date' => 'datetime',
     ];
     public function items()
     {

@@ -4,11 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class ItemController extends Controller
 {
 
-    public function index() {}
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            // Start query with relationship
+            $query = Item::get();
+
+            return DataTables::of($query)
+                ->addIndexColumn()
+              
+                ->addColumn('action', function ($row) {
+                    return '
+                    <button class="btn btn-primary btn-sm editBtn" data-id="' . $row->id . '">Edit</button> ' .
+                        '<button class="btn btn-danger btn-sm" data-action="delete" data-id="' . $row->id . '">Delete</button>';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('item.index');
+    }
 
     public function create()
     {

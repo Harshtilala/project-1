@@ -18,6 +18,7 @@ Route::post('/orders/store', [OrderController::class, 'store'])->name('order.sto
 Route::post('/orders/change-status/{id}', [OrderController::class, 'changeStatus']);
 Route::get('/orders/{id}/edit', [OrderController::class, 'edit'])->name('order.edit');
 Route::put('/orders/{id}', [OrderController::class, 'update'])->name('order.update');
+
 Route::delete('/orders/{id}', [OrderController::class, 'destroy'])->name('order.destroy');
 
 

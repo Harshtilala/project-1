@@ -29,8 +29,8 @@
             <a href="#city" class="submenu-item" data-icon="🏙️">City</a>
             <a href="#demo" class="submenu-item" data-icon="🧪">Demo</a>
             <hr class="submenu-sep" />
-            <a href="{{ route('item.index') }}" class="submenu-item" data-icon="➕">Add Item</a>
-            <a href="#item-list" class="submenu-item" data-icon="📃">Item List</a>
+            <a href="{{ route('item.create') }}" class="submenu-item" data-icon="➕">Add Item</a>
+            <a href="{{ route('item.index') }}"class="submenu-item" data-icon="📃">Item List</a>
           </div>
         </details>
 

@@ -19,30 +19,8 @@ class OrderController extends Controller
             if ($request->filled('department'))      $query->where('department', $request->department);
             if ($request->filled('department2'))     $query->where('department', $request->department2);
 
-            if ($request->filled('category'))        $query->where('category', $request->category);
-            if ($request->filled('category2'))       $query->where('category', $request->category2);
-
-            if ($request->filled('item'))            $query->whereHas('items', fn($q) => $q->where('item', $request->item));
-            if ($request->filled('item2'))           $query->whereHas('items', fn($q) => $q->where('item', $request->item2));
-
-            if ($request->filled('status'))          $query->where('status', $request->status === 'completed' ? 1 : 0);
-            if ($request->filled('status2'))         $query->where('status', $request->status2 === 'completed' ? 1 : 0);
-            if ($request->filled('status2_2'))       $query->where('status', $request->status2_2 === 'completed' ? 1 : 0);
-
-            if ($request->filled('type'))            $query->where('type', $request->type);
-            if ($request->filled('type2'))           $query->where('type', $request->type2);
-
-            if ($request->filled('fromDate'))        $query->whereDate('date', '>=', $request->fromDate);
-            if ($request->filled('toDate'))          $query->whereDate('date', '<=', $request->toDate);
-            if ($request->filled('fromDate2'))       $query->whereDate('date', '>=', $request->fromDate2);
-            if ($request->filled('toDate2'))         $query->whereDate('date', '<=', $request->toDate2);
-
-            if ($request->filled('deliveryFromDate')) $query->whereDate('delivery_date', '>=', $request->deliveryFromDate);
-            if ($request->filled('deliveryToDate'))   $query->whereDate('delivery_date', '<=', $request->deliveryToDate);
-
-            if ($request->filled('supplier'))        $query->where('to_supplier', $request->supplier);
-            if ($request->filled('supplier2'))       $query->where('to_supplier', $request->supplier2);
-
+            if ($request->filled('status'))          $query->where('status', $request->status === '1' ? 1 : 0);
+       
             // Let Yajra handle pagination, ordering, searching
             return DataTables::of($query)
                 ->addIndexColumn()
@@ -65,8 +43,7 @@ class OrderController extends Controller
                 ->addColumn('action', function ($row) {
                     return '
                     <button class="btn btn-primary btn-sm editBtn" data-id="' . $row->id . '">Edit</button> ' .
-
-                        '<button class="btn btn-danger btn-sm" data-action="delete" data-id="' . $row->id . '">Delete</button>';
+                    '<button class="btn btn-danger btn-sm" data-action="delete" data-id="' . $row->id . '">Delete</button>';
                 })
                 ->rawColumns(['status', 'action'])
                 ->make(true);
@@ -180,89 +157,122 @@ class OrderController extends Controller
         return view('order.edit', compact('order'));
     }
 
-   public function update(Request $request, $id)
-{
-    // Validate order fields
-    $validated = $request->validate([
-        'department' => 'required',
-        'type' => 'required',
-        'order_date' => 'required|date',
-        'date' => 'required|date',
-        'real_delivery_date' => 'required|date',
-        'gold_price' => 'required|numeric',
-        'silver_price' => 'required|numeric',
-        'party_name' => 'required|string',
-        'to_supplier' => 'required|string',
-        'delivery_date' => 'required|date',
-        'remark' => 'required|string',
+    public function update(Request $request, $id)
+    {
+        // Validate order fields
+        $validated = $request->validate([
+            'department' => 'required',
+            'type' => 'required',
+            'order_date' => 'required|date',
+            'date' => 'required|date',
+            'real_delivery_date' => 'required|date',
+            'gold_price' => 'required|numeric',
+            'silver_price' => 'required|numeric',
+            'party_name' => 'required|string',
+            'to_supplier' => 'required|string',
+            'delivery_date' => 'required|date',
+            'remark' => 'required|string',
 
-        'items' => 'nullable|array',
-        'items.*.id' => 'nullable|exists:order_items,id',
-        'items.*.category' => 'nullable|string',
-        'items.*.item' => 'nullable|string',
-        'items.*.weight' => 'nullable|numeric',
-        'items.*.pcs' => 'nullable|integer',
-        'items.*.tunch' => 'nullable|string',
-        'items.*.size' => 'nullable|string',
-        'items.*.length' => 'nullable|numeric',
-        'items.*.hook_style' => 'nullable|string',
-        'items.*.remark' => 'nullable|string',
-        'items.*.image' => 'nullable|image|max:2048',
-    ]);
+            'items' => 'nullable|array',
+            'items.*.id' => 'nullable|exists:order_items,id',
+            'items.*.category' => 'nullable|string',
+            'items.*.item' => 'nullable|string',
+            'items.*.weight' => 'nullable|numeric',
+            'items.*.pcs' => 'nullable|integer',
+            'items.*.tunch' => 'nullable|string',
+            'items.*.size' => 'nullable|string',
+            'items.*.length' => 'nullable|numeric',
+            'items.*.hook_style' => 'nullable|string',
+            'items.*.remark' => 'nullable|string',
+            'items.*.image' => 'nullable|image|max:2048',
+        ]);
 
-    // Update main order
-    $order = Order::findOrFail($id);
-    $order->update([
-        'department' => $request->department,
-        'type' => $request->type,
-        'order_date' => $request->order_date,
-        'date' => $request->date,
-        'real_delivery_date' => $request->real_delivery_date,
-        'gold_price' => $request->gold_price,
-        'silver_price' => $request->silver_price,
-        'party_name' => $request->party_name,
-        'delivery_date' => $request->delivery_date,
-        'to_supplier' => $request->to_supplier,
-        'remark' => $request->remark
-    ]);
+        // Update main order
+        $order = Order::findOrFail($id);
+        $order->update([
+            'department' => $request->department,
+            'type' => $request->type,
+            'order_date' => $request->order_date,
+            'date' => $request->date,
+            'real_delivery_date' => $request->real_delivery_date,
+            'gold_price' => $request->gold_price,
+            'silver_price' => $request->silver_price,
+            'party_name' => $request->party_name,
+            'delivery_date' => $request->delivery_date,
+            'to_supplier' => $request->to_supplier,
+            'remark' => $request->remark
+        ]);
+        // DELETE ITEM 
+        if ($request->filled('deleted_items')) {
+            $ids = explode(',', $request->deleted_items);
 
-    // Handle order items
-    if ($request->has('items')) {
-        foreach ($request->items as $itemData) {
+            foreach ($ids as $itemId) {
+                $item = OrderItem::find($itemId);
 
-            // Skip empty items
-            if (
-                empty($itemData['category']) &&
-                empty($itemData['item']) &&
-                empty($itemData['tunch']) &&
-                empty($itemData['weight']) &&
-                empty($itemData['pcs']) &&
-                empty($itemData['size']) &&
-                empty($itemData['length']) &&
-                empty($itemData['hook_style']) &&
-                empty($itemData['remark']) &&
-                empty($itemData['image'])
-            ) {
-                continue;
+                if ($item) {
+                    // delete image
+                    if ($item->image && file_exists(public_path('order_items/' . $item->image))) {
+                        unlink(public_path('order_items/' . $item->image));
+                    }
+                    $item->delete();
+                }
             }
+        }
 
-            // If item ID exists, update existing, else create new
-            if (!empty($itemData['id'])) {
-                $orderItem = OrderItem::find($itemData['id']);
-                if ($orderItem) {
-                    // Delete old image if new image uploaded
-                    if (isset($itemData['image'])) {
-                        if ($orderItem->image && file_exists(public_path('order_items/' . $orderItem->image))) {
-                            unlink(public_path('order_items/' . $orderItem->image));
+        // Handle order items
+        if ($request->has('items')) {
+            foreach ($request->items as $itemData) {
+                if (
+                    empty($itemData['category']) &&
+                    empty($itemData['item']) &&
+                    empty($itemData['tunch']) &&
+                    empty($itemData['weight']) &&
+                    empty($itemData['pcs']) &&
+                    empty($itemData['size']) &&
+                    empty($itemData['length']) &&
+                    empty($itemData['hook_style']) &&
+                    empty($itemData['remark']) &&
+                    empty($itemData['image'])
+                ) {
+                    continue;
+                }
+                if (!empty($itemData['id'])) {
+                    $orderItem = OrderItem::find($itemData['id']);
+                    if ($orderItem) {
+                        if (isset($itemData['image'])) {
+                            if ($orderItem->image && file_exists(public_path('order_items/' . $orderItem->image))) {
+                                unlink(public_path('order_items/' . $orderItem->image));
+                            }
+                            $imageName = time() . '_' . $itemData['image']->getClientOriginalName();
+                            $itemData['image']->move(public_path('order_items'), $imageName);
+                            $itemData['image'] = $imageName;
+                        } else {
+                            $itemData['image'] = $orderItem->image;
                         }
+
+                        $orderItem->update([
+                            'category' => $itemData['category'] ?? null,
+                            'item' => $itemData['item'] ?? null,
+                            'tunch' => $itemData['tunch'] ?? null,
+                            'weight' => $itemData['weight'] ?? null,
+                            'pcs' => $itemData['pcs'] ?? null,
+                            'size' => $itemData['size'] ?? null,
+                            'length' => $itemData['length'] ?? null,
+                            'hook_style' => $itemData['hook_style'] ?? null,
+                            'remark' => $itemData['remark'] ?? null,
+                            'image' => $itemData['image'] ?? null,
+                        ]);
+                    }
+                } else {
+                    // New item creation
+                    $imageName = null;
+                    if (isset($itemData['image'])) {
                         $imageName = time() . '_' . $itemData['image']->getClientOriginalName();
                         $itemData['image']->move(public_path('order_items'), $imageName);
-                        $itemData['image'] = $imageName;
-                    } else {
-                        $itemData['image'] = $orderItem->image; // keep old image
                     }
 
-                    $orderItem->update([
+                    OrderItem::create([
+                        'order_id' => $order->id,
                         'category' => $itemData['category'] ?? null,
                         'item' => $itemData['item'] ?? null,
                         'tunch' => $itemData['tunch'] ?? null,
@@ -272,36 +282,14 @@ class OrderController extends Controller
                         'length' => $itemData['length'] ?? null,
                         'hook_style' => $itemData['hook_style'] ?? null,
                         'remark' => $itemData['remark'] ?? null,
-                        'image' => $itemData['image'] ?? null,
+                        'image' => $imageName
                     ]);
                 }
-            } else {
-                // New item creation
-                $imageName = null;
-                if (isset($itemData['image'])) {
-                    $imageName = time() . '_' . $itemData['image']->getClientOriginalName();
-                    $itemData['image']->move(public_path('order_items'), $imageName);
-                }
-
-                OrderItem::create([
-                    'order_id' => $order->id,
-                    'category' => $itemData['category'] ?? null,
-                    'item' => $itemData['item'] ?? null,
-                    'tunch' => $itemData['tunch'] ?? null,
-                    'weight' => $itemData['weight'] ?? null,
-                    'pcs' => $itemData['pcs'] ?? null,
-                    'size' => $itemData['size'] ?? null,
-                    'length' => $itemData['length'] ?? null,
-                    'hook_style' => $itemData['hook_style'] ?? null,
-                    'remark' => $itemData['remark'] ?? null,
-                    'image' => $imageName
-                ]);
             }
         }
-    }
 
-    return redirect()->route('order.index')->with('success', 'Order and items updated successfully.');
-}
+        return redirect()->route('order.index')->with('success', 'Order and items updated successfully.');
+    }
 
     public function destroy($id)
     {
@@ -312,4 +300,6 @@ class OrderController extends Controller
         $order->delete();
         return response()->json(['success' => true, 'message' => 'order deleted successfully.']);
     }
+
+    
 }

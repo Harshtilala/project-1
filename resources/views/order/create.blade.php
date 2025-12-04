@@ -1,412 +1,461 @@
 @extends('layouts.master')
 @section('content')
- <style>
-    /* Add padding to main content to prevent footer overlap */
-    .content {
-      padding-bottom: 70px;
-    }
+<style>
+  /* Add padding to main content to prevent footer overlap */
+  .content {
+    padding-bottom: 70px;
+  }
 
-    :root {
-      --success-color: #10b981;
-      --info-color: #3b82f6;
-      --warning-color: #f59e0b;
-      --danger-color: #ef4444;
-      --light-color: #f8fafc;
-      --dark-color: #1e293b;
-      --gray-100: #f1f5f9;
-      --gray-200: #e2e8f0;
-      --gray-300: #cbd5e1;
-      --gray-400: #94a3b8;
-      --gray-500: #64748b;
-      --gray-600: #475569;
-      --gray-700: #334155;
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+  :root {
+    --success-color: #10b981;
+    --info-color: #3b82f6;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --light-color: #f8fafc;
+    --dark-color: #1e293b;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background-color: #f8fafc;
-      color: var(--gray-700);
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8fafc;
+    color: var(--gray-700);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
 
-    .order-form {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      padding: 20px;
-    }
+  .order-form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 20px;
+  }
 
-    .form-section {
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: var(--shadow-sm);
-      padding: 20px;
-      margin-bottom: 20px;
-      color: black;
-      font-weight: bold;
-      font-size: 15px;
-    }
+  .form-section {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    padding: 20px;
+    margin-bottom: 20px;
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+  }
 
-    .form-section h2 {
-      margin-top: 0;
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--gray-200);
-      color: var(--gray-800);
-    }
+  .form-section h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray-200);
+    color: var(--gray-800);
+  }
 
-    /* 3-column grid layout */
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
+  /* 3-column grid layout */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
 
-    .form-group {
-      margin-bottom: 0;
-    }
+  .form-group {
+    margin-bottom: 0;
+  }
 
-    .form-group label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 500;
-      color: var(--gray-600);
-    }
+  .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--gray-600);
+  }
 
-    /* Base form control styles */
-    .form-control {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--gray-300);
-      border-radius: 6px;
-      background: white;
-      color: var(--gray-700);
-      font-size: 14px;
-      transition: all 0.2s ease;
-    }
+  /* Base form control styles */
+  .form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--gray-300);
+    border-radius: 6px;
+    background: white;
+    color: var(--gray-700);
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
 
-    .form-control:focus {
-      border-color: var(--primary-color);
-      outline: none;
-      box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
-    }
+  .form-control:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+  }
 
-    .form-control:disabled {
-      background-color: var(--gray-100);
-      cursor: not-allowed;
-    }
+  .form-control:disabled {
+    background-color: var(--gray-100);
+    cursor: not-allowed;
+  }
 
-    /* Custom Select Container - Only for dropdowns */
-    .select-container {
-      position: relative;
-      width: 100%;
-    }
+  /* Custom Select Container - Only for dropdowns */
+  .select-container {
+    position: relative;
+    width: 100%;
+  }
 
-    .select-container i {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--gray-400);
-      pointer-events: none;
-      z-index: 2;
-    }
+  .select-container i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-400);
+    pointer-events: none;
+    z-index: 2;
+  }
 
-    /* Style only select elements within select-container */
-    .select-container select.form-control {
-      padding-left: 40px;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      background-size: 16px 12px;
-      background-color: white;
-    }
+  /* Style only select elements within select-container */
+  .select-container select.form-control {
+    padding-left: 40px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px 12px;
+    background-color: white;
+  }
 
-    .form-actions {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 24px;
-      padding: 16px 0;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #fff;
-      padding: 15px 20px;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-    }
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 24px;
+    padding: 16px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    padding: 15px 20px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
 
-    .reset-message {
-      transition: opacity 0.3s ease-in-out;
-    }
+  .reset-message {
+    transition: opacity 0.3s ease-in-out;
+  }
 
-    .lot-items {
-      margin-top: 20px;
-    }
+  .lot-items {
+    margin-top: 20px;
+  }
 
-    .lot-item {
-      background: #fff;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
-      position: relative;
-      box-shadow: var(--shadow-sm);
-      color: black;
-      font-weight: bold;
-      font-size: 15px;
-    }
+  .lot-item {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+  }
 
-    .remove-item {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: var(--m3-error-container);
-      color: var(--m3-on-error-container);
-      border: none;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
+  .remove-item {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--m3-error-container);
+    color: var(--m3-on-error-container);
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
 
-    .image-upload {
-      border: 2px dashed var(--m3-outline);
-      border-radius: 8px;
-      padding: 20px;
-      text-align: center;
-      cursor: pointer;
-      margin-top: 10px;
-    }
+  .image-upload {
+    border: 2px dashed var(--m3-outline);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 10px;
+  }
 
-    .image-upload:hover {
-      border-color: var(--m3-primary);
-      background: rgba(var(--m3-primary-rgb), 0.05);
-    }
+  .image-upload:hover {
+    border-color: var(--m3-primary);
+    background: rgba(var(--m3-primary-rgb), 0.05);
+  }
 
-    .image-preview {
-      max-width: 100px;
-      max-height: 100px;
-      margin-top: 10px;
-      display: none;
-    }
-    .btn-close {
-      background-color: #dc2626;
-      color: white;
-      width: 100px;
-      height: 20px;
-      padding: 8px 20px;
-      border: none;
-      border-radius: 6px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
+  .image-preview {
+    max-width: 100px;
+    max-height: 100px;
+    margin-top: 10px;
+    display: none;
+  }
 
-    /* Full width for specific elements */
-    .full-width {
-      grid-column: 1 / -1;
-    }
+  .btn-close {
+    background-color: #dc2626;
+    color: white;
+    width: 100px;
+    height: 20px;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
 
-    /* Button group styling */
-    .button-group {
-      display: flex;
-      gap: 8px;
-      align-items: flex-end;
-    }
-  </style>
+  /* Full width for specific elements */
+  .full-width {
+    grid-column: 1 / -1;
+  }
+
+  /* Button group styling */
+  .btn-common {
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+    text-decoration: none;
+  }
+
+  .btn-back {
+    background-color: #6c757d;
+  }
+
+  .btn-reset {
+    background-color: #dc2626;
+  }
+
+  .btn-add {
+    background-color: #0d6efd;
+  }
+
+  .btn-save {
+    background-color: #0266fc;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+  }
+</style>
+
 <body class="dashboard">
 
-      <form id="orderForm" class="order-form"  method="POST" action="{{ route('order.store') }}" enctype="multipart/form-data">
-        @csrf
-        <!-- Order Details Section -->
-        <h1 class="title" style="font-size: 26px; font-weight: bold; color: black; position: absolute; top: 8px;">Add New Order</h1>
-        <div class="form-section" style="position: relative; top: 30px;">
-          <div class="form-grid">
-            <!-- Row 1 -->{{-- Global Alert Messages --}}
-@if (session('success'))
-    <div style="
+  <form id="orderForm" class="order-form" method="POST" action="{{ route('order.store') }}"
+    enctype="multipart/form-data">
+    @csrf
+    <!-- Order Details Section -->
+    <h1 class="title" style="font-size: 26px; font-weight: bold; color: black; position: absolute; top: 8px;">Add New
+      Order</h1>
+    <div class="form-section" style="position: relative; top: 30px;">
+      <div class="form-grid">
+        <!-- Row 1 -->{{-- Global Alert Messages --}}
+        @if (session('success'))
+        <div style="
         background: #16a34a; 
         color: white; 
         padding: 12px; 
         border-radius: 6px; 
         margin-bottom: 12px;
         font-weight: 600;">
-        ✔ {{ session('success') }}
-    </div>
-@endif
+          ✔ {{ session('success') }}
+        </div>
+        @endif
 
-@if (session('error'))
-    <div style="
+        @if (session('error'))
+        <div style="
         background: #dc2626; 
         color: white; 
         padding: 12px; 
         border-radius: 6px; 
         margin-bottom: 12px;
         font-weight: 600;">
-        ❌ {{ session('error') }}
-    </div>
-@endif
+          ❌ {{ session('error') }}
+        </div>
+        @endif
 
-@if (session('warning'))
-    <div style="
+        @if (session('warning'))
+        <div style="
         background: #f59e0b; 
         color: white; 
         padding: 12px; 
         border-radius: 6px; 
         margin-bottom: 12px;
         font-weight: 600;">
-        ⚠️ {{ session('warning') }}
-    </div>
-@endif
+          ⚠️ {{ session('warning') }}
+        </div>
+        @endif
 
-@if (session('info'))
-    <div style="
+        @if (session('info'))
+        <div style="
         background: #3b82f6; 
         color: white; 
         padding: 12px; 
         border-radius: 6px; 
         margin-bottom: 12px;
         font-weight: 600;">
-        ℹ️ {{ session('info') }}
-    </div>
-@endif
+          ℹ️ {{ session('info') }}
+        </div>
+        @endif
 
-{{-- Validation Errors --}}
-@if ($errors->any())
-    <div style="
+        {{-- Validation Errors --}}
+        @if ($errors->any())
+        <div style="
         background: #dc2626; 
         color: white; 
         padding: 14px; 
         border-radius: 6px; 
         margin-bottom: 12px;
         font-weight: 600;">
-        <strong>Validation Errors:</strong>
-        <ul style="margin-top: 10px; margin-left: 20px;">
+          <strong>Validation Errors:</strong>
+          <ul style="margin-top: 10px; margin-left: 20px;">
             @foreach ($errors->all() as $error)
-                <li>• {{ $error }}</li>
+            <li>• {{ $error }}</li>
             @endforeach
-        </ul>
+          </ul>
+        </div>
+        @endif
+
+        <div class="form-group">
+          <label for="department" style="color: black; font-weight: bold; font-size: 15px;">Department</label>
+          <div class="select-container">
+            <i class="fas fa-building"></i>
+            <select id="department" name="department" class="form-control" required>
+              <option value="">Select Department</option>
+              <option value="gold" data-icon="fa-gem">Gold</option>
+              <option value="silver" data-icon="fa-coins">Silver</option>
+              <option value="diamond" data-icon="fa-gem">Diamond</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="type" style="color: black; font-weight: bold; font-size: 15px;">Type</label>
+          <div class="select-container">
+            <i class="fas fa-tag"></i>
+            <select id="type" name="type" class="form-control" required>
+              <option value="">Select Type</option>
+              <option value="new" data-icon="fa-plus-circle">New</option>
+              <option value="repair" data-icon="fa-tools">Repair</option>
+              <option value="exchange" data-icon="fa-exchange-alt">Exchange</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="orderDate" style="color: black; font-weight: bold; font-size: 15px;">Date</label>
+          <input type="date" id="orderDate" name="order_date" class="form-control" required>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="form-group">
+          <label for="deliveryDate" style="color: black; font-weight: bold; font-size: 15px;">Delivery Date</label>
+          <input type="date" id="deliveryDate" name="date" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="realDeliveryDate" style="color: black; font-weight: bold; font-size: 15px;">Real Delivery
+            Date</label>
+          <input type="date" id="realDeliveryDate" name="real_delivery_date" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="goldPrice" style="color: black; font-weight: bold; font-size: 15px;">Gold Price for this
+            Order</label>
+          <input type="number" id="goldPrice" name="gold_price" class="form-control" step="0.01" min="0">
+        </div>
+
+        <!-- Row 3 -->
+        <div class="form-group">
+          <label for="partyName" style="color: black; font-weight: bold; font-size: 15px;">Party Name & No.</label>
+          <input type="text" id="partyName" name="party_name" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="toSupplier" style="color: black; font-weight: bold; font-size: 15px;">To Supplier</label>
+          <input type="text" id="toSupplier" name="to_supplier" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label for="silverPrice" style="color: black; font-weight: bold; font-size: 15px;">Silver Price</label>
+          <input type="number" id="silverPrice" name="silver_price" class="form-control" step="0.01" min="0">
+        </div>
+
+        <!-- Row 4 -->
+        <div class="form-group">
+          <label for="supplierDeliveryDate" style="color: black; font-weight: bold; font-size: 15px;">Delivery
+            Date</label>
+          <input type="date" id="supplierDeliveryDate" name="delivery_date" class="form-control" style="height: 40px;">
+        </div>
+
+        <div class="form-group">
+          <label for="remark" style="color: black; font-weight: bold; font-size: 15px;">Remark</label>
+          <input type="text" id="remark" name="remark" class="form-control" style="height: 40px;">
+        </div>
+
+
+        <div class="form-group" style="grid-column: 1 / -1; margin-top: 20px;">
+          <div class="button-group">
+
+            <a href="{{ route('order.index') }}" class="btn-common btn-back">
+              ← Back
+            </a>
+
+            <button type="button" class="btn-common btn-reset" onclick="resetForm()" title="Reset form">
+              <i class="fas fa-undo"></i> Reset
+            </button>
+
+            <button type="button" class="btn-common btn-add" id="addLotItem">
+              <i class="fas fa-plus"></i> Add Item
+            </button>
+
+            <button type="submit" class="btn-common btn-save">
+              <i class="fas fa-save"></i> Save
+            </button>
+
+          </div>
+        </div>
+
+      </div>
     </div>
-@endif
 
-            <div class="form-group">
-              <label for="department" style="color: black; font-weight: bold; font-size: 15px;">Department</label>
-              <div class="select-container">
-                <i class="fas fa-building"></i>
-                <select id="department"  name="department" class="form-control" required>
-                  <option value="">Select Department</option>
-                  <option value="gold" data-icon="fa-gem">Gold</option>
-                  <option value="silver" data-icon="fa-coins">Silver</option>
-                  <option value="diamond" data-icon="fa-gem">Diamond</option>
-                </select>
-              </div>
-            </div>
+    <!-- Lot Items Section -->
+    <div id="lotItemsSection" style="display: none;">
+      <div id="lotItemsContainer">
+        <!-- Lot items will be added here dynamically -->
+      </div>
+    </div>
 
-            <div class="form-group">
-              <label for="type" style="color: black; font-weight: bold; font-size: 15px;">Type</label>
-              <div class="select-container">
-                <i class="fas fa-tag"></i>
-                <select id="type" name="type" class="form-control" required>
-                  <option value="">Select Type</option>
-                  <option value="new" data-icon="fa-plus-circle">New</option>
-                  <option value="repair" data-icon="fa-tools">Repair</option>
-                  <option value="exchange" data-icon="fa-exchange-alt">Exchange</option>
-                </select>
-              </div>
-            </div>
 
-            <div class="form-group">
-              <label for="orderDate" style="color: black; font-weight: bold; font-size: 15px;">Date</label>
-              <input type="date" id="orderDate" name="order_date" class="form-control" required>
-            </div>
+  </form>
 
-            <!-- Row 2 -->
-            <div class="form-group">
-              <label for="deliveryDate" style="color: black; font-weight: bold; font-size: 15px;">Delivery Date</label>
-              <input type="date" id="deliveryDate" name="date" class="form-control" required>
-            </div>
-
-            <div class="form-group">
-              <label for="realDeliveryDate" style="color: black; font-weight: bold; font-size: 15px;">Real Delivery Date</label>
-              <input type="date" id="realDeliveryDate" name="real_delivery_date" class="form-control">
-            </div>
-
-            <div class="form-group">
-              <label for="goldPrice" style="color: black; font-weight: bold; font-size: 15px;">Gold Price for this Order</label>
-              <input type="number" id="goldPrice" name="gold_price" class="form-control" step="0.01" min="0">
-            </div>
-
-            <!-- Row 3 -->
-            <div class="form-group">
-              <label for="partyName" style="color: black; font-weight: bold; font-size: 15px;">Party Name & No.</label>
-              <input type="text" id="partyName" name="party_name" class="form-control" required>
-            </div>
-
-            <div class="form-group">
-              <label for="toSupplier" style="color: black; font-weight: bold; font-size: 15px;">To Supplier</label>
-              <input type="text" id="toSupplier" name="to_supplier" class="form-control">
-            </div>
-
-            <div class="form-group">
-              <label for="silverPrice" style="color: black; font-weight: bold; font-size: 15px;">Silver Price</label>
-              <input type="number" id="silverPrice" name="silver_price" class="form-control" step="0.01" min="0">
-            </div>
-
-            <!-- Row 4 -->
-            <div class="form-group">
-              <label for="supplierDeliveryDate" style="color: black; font-weight: bold; font-size: 15px;">Delivery Date</label>
-              <input type="date" id="supplierDeliveryDate" name="delivery_date" class="form-control" style="height: 40px;">
-            </div>
-
-            <div class="form-group">
-              <label for="remark" style="color: black; font-weight: bold; font-size: 15px;">Remark</label>
-              <input type="text" id="remark" name="remark" class="form-control" style="height: 40px;">
-            </div>
-
-            <div class="form-group" style="grid-column: 1 / -1; margin-top: 20px;">
-              <div class="button-group" style="display: flex; gap: 10px; justify-content: flex-start;">
-                <button type="button" class="btn btn-style" id="addLotItem" style="background-color: #0d6efd; color: white; padding: 8px 16px; border: none; border-radius: 4px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; height: 40px;">
-                  <i class="fas fa-plus"></i> Add Item
-                </button>
-                <button type="button" class="btn btn-reset" onclick="resetForm()" title="Reset form" style="background-color: #dc2626; color: white; padding: 8px 16px; border: none; border-radius: 4px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; height: 40px;">
-                  <i class="fas fa-undo"></i> Reset
-                </button>
-                <button type="submit" class="btn btn-style" style="background-color: #0266fc; color: white; padding: 8px 24px; border: none; border-radius: 4px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px; height: 40px;">
-                  <i class="fas fa-save"></i> Save
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Lot Items Section -->
-        <div id="lotItemsSection" style="display: none;">
-          <div id="lotItemsContainer">
-            <!-- Lot items will be added here dynamically -->
-          </div>
-        </div>
-       
-        
-      </form>
-   
   <script src="scripts/dashboard.js"></script>
   <script>
     // Ensure page loads at the top
