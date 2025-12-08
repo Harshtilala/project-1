@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('department');
-            $table->string('type');
+            // $table->string('type');
             $table->string('order_date');
             $table->string('date');
             $table->string('real_delivery_date')->nullable();

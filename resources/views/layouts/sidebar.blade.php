@@ -21,8 +21,8 @@
             <a href="#ad-master" class="submenu-item" data-icon="🧾">AD Master</a>
             <a href="#stamp" class="submenu-item" data-icon="🏷️">Stamp</a>
             <hr class="submenu-sep" />
-            <a href="#add-user" class="submenu-item" data-icon="➕">Add User</a>
-            <a href="#user-list" class="submenu-item" data-icon="👥">User List</a>
+            <a href="{{ route('users.create') }}" class="submenu-item" data-icon="➕">Add User</a>
+            <a href="{{ route('users.index') }}" class="submenu-item" data-icon="👥">User List</a>
             <a href="#user-rights" class="submenu-item" data-icon="🔐">User Rights</a>
             <hr class="submenu-sep" />
             <a href="#state" class="submenu-item" data-icon="🗺️">State</a>
