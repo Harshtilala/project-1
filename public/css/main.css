@@ -327,11 +327,11 @@ h2.title {
 }
 
 /* Make last row in tbody (usually total row) darker */
-tbody tr:last-child td {
+/* tbody tr:last-child td {
     font-weight: 600;
     background-color: #f8f9fa;
     border-top: 2px solid #dee2e6;
-}
+} */
 
 tbody tr:last-child:hover {
     background-color: #f1f3f5 !important;
@@ -1014,15 +1014,15 @@ tfoot td {
 }
 
 /* Last row in tbody (usually total row) */
-tbody tr:last-child td {
-    font-weight: 600;
-    background-color: #f8f9fa;
-    border-top: 2px solid #dee2e6;
-}
+/* tbody tr:last-child td { */
+    /* font-weight: 600; */
+    /* background-color: #46729e; */
+    /* border-top: 2px solid #dee2e6; */
+/* } */
 
-tbody tr:last-child:hover {
+/* tbody tr:last-child:hover {
     background-color: #f1f3f5 !important;
-}
+} */
 
 /* Table condensed */
 table.condensed th,

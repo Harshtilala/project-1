@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
-{  
+{
     protected $table = 'accounts';
     protected $fillable = [
         'name',
         'code',
-        'mobile',   
+        'mobile',
         'email',
         'account_group',
         'remark',
@@ -25,4 +25,11 @@ class Account extends Model
         'wastage',
     ];
 
+   protected $casts = [
+        'is_supplier' => 'boolean',
+        'mobile' => 'array',
+        'email' => 'array',
+        'wastage' => 'array'
+    ];
+    
 }

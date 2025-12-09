@@ -38,8 +38,8 @@
         <details class="menu-group" id="menu-account">
               <summary class="nav-item">Account</summary>
           <div class="submenu">
-            <a href="#add-account" class="submenu-item" data-icon="➕">Add Account</a>
-            <a href="#account-list" class="submenu-item" data-icon="📄">Account List</a>
+            <a href="{{ route('accounts.create') }}" class="submenu-item" data-icon="➕">Add Account</a>
+            <a href="{{ route('accounts.index') }}" class="submenu-item" data-icon="📄">Account List</a>
             <a href="#account-group" class="submenu-item" data-icon="🧩">Account Group</a>
           </div>
         </details>
