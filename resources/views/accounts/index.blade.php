@@ -105,7 +105,7 @@
     let table; 
      
     $(document).ready(function() {
-    let table = $('#accountsTable').DataTable({
+     table = $('#accountsTable').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,

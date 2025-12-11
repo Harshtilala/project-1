@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -20,8 +21,7 @@ Route::post('/orders/store', [OrderController::class, 'store'])->name('order.sto
 Route::post('/orders/change-status/{id}', [OrderController::class, 'changeStatus']);
 Route::get('/orders/{id}/edit', [OrderController::class, 'edit'])->name('order.edit');
 Route::put('/orders/{id}', [OrderController::class, 'update'])->name('order.update');
-
-Route::delete('/`orders/{id}', [OrderController::class, 'destroy'])->name('order.destroy');
+Route::delete('/orders/delete/{id}', [OrderController::class, 'destroy'])->name('order.destroy');
 
 
 Route::get('/item', [ItemController::class, 'index'])->name('item.index');
@@ -48,3 +48,9 @@ Route::get('/accounts/edit/{id}', [AccountController::class, 'edit'])->name('acc
 Route::put('/accounts/{id}', [AccountController::class, 'update'])->name('accounts.update');
 Route::delete('/accounts/delete/{id}', [AccountController::class, 'destroy'])->name('accounts.destroy');
 
+Route::get('ledger', [LedgerController::class,'index'])->name('ledger.index');
+Route::get('ledger/create', [LedgerController::class,'create'])->name('ledger.create');
+Route::post('ledger/store', [LedgerController::class,'store'])->name('ledger.store');
+Route::get('ledger/{id}/edit', [LedgerController::class,'edit'])->name('ledger.edit');
+Route::put('ledger/{id}', [LedgerController::class,'update'])->name('ledger.update');
+Route::delete('ledger/delete/{id}', [LedgerController::class,'destroy'])->name('ledger.destroy');

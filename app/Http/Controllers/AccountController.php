@@ -15,7 +15,7 @@ class AccountController extends Controller
             $query = Account::get();
 
             return DataTables::of($query)
-                ->addIndexColumn()
+                ->addIndexColumn()  
 
                 ->addColumn('action', function ($row) {
                     return '

@@ -73,7 +73,7 @@
     gap: 0.5rem;
   }
 
- 
+ `
 
     .btn-primary {
         background: #0d6efd;

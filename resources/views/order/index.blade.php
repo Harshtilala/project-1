@@ -595,7 +595,7 @@
             if (!confirm('Delete this user?')) return;
 
             $.ajax({
-                url: `orders/${id}`,
+                url: `/orders/delete/${id}`,
                 method: 'DELETE',
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 success: function () {

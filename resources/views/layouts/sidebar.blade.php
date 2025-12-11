@@ -84,7 +84,7 @@
         <details class="menu-group" id="menu-ledger">
           <summary class="nav-item">Ledger</summary>
           <div class="submenu">
-            <a href="ledger.html" class="submenu-item" data-icon="📒">Ledger</a>
+            <a href="{{ route('ledger.index') }}" class="submenu-item" data-icon="📒">Ledger</a>
             <a href="daybook.html" class="submenu-item" data-icon="📔">Daybook</a>
             <a href="cashbook.html" class="submenu-item" data-icon="💵">Cashbook</a>
             <a href="bankbook.html" class="submenu-item" data-icon="🏦">Bankbook</a>
