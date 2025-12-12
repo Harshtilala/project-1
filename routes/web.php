@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DiamondStockController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\OrderController;
@@ -51,6 +52,13 @@ Route::delete('/accounts/delete/{id}', [AccountController::class, 'destroy'])->n
 Route::get('ledger', [LedgerController::class,'index'])->name('ledger.index');
 Route::get('ledger/create', [LedgerController::class,'create'])->name('ledger.create');
 Route::post('ledger/store', [LedgerController::class,'store'])->name('ledger.store');
-Route::get('ledger/{id}/edit', [LedgerController::class,'edit'])->name('ledger.edit');
+Route::get('ledger/edit/{id}', [LedgerController::class,'edit'])->name('ledger.edit');
 Route::put('ledger/{id}', [LedgerController::class,'update'])->name('ledger.update');
 Route::delete('ledger/delete/{id}', [LedgerController::class,'destroy'])->name('ledger.destroy');
+
+Route::get('diamond-stocks', [DiamondStockController::class, 'index'])->name('diamond_stocks.index');
+Route::get('diamond-stocks/create', [DiamondStockController::class, 'create'])->name('diamond_stocks.create');
+Route::post('diamond-stocks/store', [DiamondStockController::class, 'store'])->name('diamond_stocks.store');
+Route::get('diamond-stocks/edit/{id}', [DiamondStockController::class, 'edit'])->name('diamond_stocks.edit');
+Route::put('diamond-stocks/{id}', [DiamondStockController::class, 'update'])->name('diamond_stocks.update');
+Route::delete('diamond-stocks/delete/{id}', [DiamondStockController::class, 'destroy'])->name('diamond_stocks.destroy');
