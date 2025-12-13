@@ -600,10 +600,10 @@
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 success: function () {
                     table.ajax.reload(null, false);
-                      toastr.success('Slider Delete Successfully!');
+                      toastr.success('order Delete Successfully!');
                 },
                 error: function (xhr) {
-                    toastr.error('Error in Slider delete!');
+                    toastr.error('Error in order delete!');
                 }
             });
         });

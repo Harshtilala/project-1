@@ -123,24 +123,24 @@
 
      $(document).on('click', '[data-action="delete"]', function () {
     const id = $(this).data('id');
-    if (!confirm('Delete this user?')) return;
+    if (!confirm('Delete this stock?')) return;
 
     $.ajax({
         url: `accounts/delete/${id}`,
         method: 'DELETE',
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
         success: function () {
-            table.ajax.reload(null, false);   // will work now
-            toastr.success('Slider Delete Successfully!');
+            table.ajax.reload(null, false);
+            toastr.success('account Delete Successfully!');
         },
         error: function () {
-            toastr.error('Error in Slider delete!');
+            toastr.error('Error in account delete!');
         }
     });
 });
 
 
-                  // Edit Button Redirect using Laravel route
+    // Edit Button Redirect using Laravel route
     $(document).on('click', '.editBtn', function () {
         const id = $(this).data('id');
         // Redirect to the edit page using named route

@@ -18,7 +18,7 @@ class DiamondStockController extends Controller
             $query = DiamondStock::query();
 
             return DataTables::of($query)
-                ->addIndexColumn()  
+                ->addIndexColumn()
 
                 ->addColumn('action', function ($row) {
                     return '
@@ -26,19 +26,19 @@ class DiamondStockController extends Controller
                 <button class="btn btn-danger btn-sm" data-action="delete" data-id="' . $row->id . '">Delete</button>
             ';
                 })
-                 ->editColumn('natural', function($row){
-                    return $row->natural ? '<span class="badge bg-success bg-opacity-10 text-success">'.$row->natural.'</span>' : '';
+                ->editColumn('natural', function ($row) {
+                    return $row->natural ? '<span class="badge bg-success bg-opacity-10 text-success">' . $row->natural . '</span>' : '';
                 })
-                ->editColumn('lab_grown', function($row){
-                    return $row->lab_grown ? '<span class="badge bg-warning bg-opacity-10 text-warning">'.$row->lab_grown.'</span>' : '';
+                ->editColumn('lab_grown', function ($row) {
+                    return $row->lab_grown ? '<span class="badge bg-warning bg-opacity-10 text-warning">' . $row->lab_grown . '</span>' : '';
                 })
-                ->editColumn('cvd', function($row){
-                    return $row->cvd ? '<span class="badge bg-danger bg-opacity-10 text-danger">'.$row->cvd.'</span>' : '';
+                ->editColumn('cvd', function ($row) {
+                    return $row->cvd ? '<span class="badge bg-danger bg-opacity-10 text-danger">' . $row->cvd . '</span>' : '';
                 })
                 ->rawColumns(['action', 'natural', 'lab_grown', 'cvd'])
                 ->make(true);
         }
-              
+
         return view('diamond.index');
     }
 
@@ -83,24 +83,43 @@ class DiamondStockController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DiamondStock $diamondStock)
+    public function edit($id)
     {
-        //
+        $diamondStock = DiamondStock::findOrFail($id);
+        return view('diamond.edit', compact('diamondStock'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DiamondStock $diamondStock)
+    public function update(Request $request, $diamondStock)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'natural' => 'nullable|integer|min:0',
+            'lab_grown' => 'nullable|integer|min:0',
+            'cvd' => 'nullable|integer|min:0',
+        ]);
+
+        $diamondStock = DiamondStock::findOrFail($diamondStock);
+        $diamondStock->update([
+            'name' => $request->name,
+            'natural' => $request->natural ?? 0,
+            'lab_grown' => $request->lab_grown ?? 0,
+            'cvd' => $request->cvd ?? 0,
+        ]);
+
+        return redirect()->route('diamond_stocks.index')->with('success', 'Diamond stock updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DiamondStock $diamondStock)
+    public function destroy($id)
     {
-        //
+        $diamondStock = DiamondStock::findOrFail($id);
+        $diamondStock->delete();
+
+        return response()->json(['success' => true]);
     }
 }

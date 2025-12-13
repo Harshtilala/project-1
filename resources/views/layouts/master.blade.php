@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!-- Bootstrap JS Bundle with Popper -->
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
@@ -22,7 +25,8 @@
     <div class="layout" style="display: flex; height: 100vh; overflow: hidden;">
         @include('layouts.sidebar')
 
-        <main class="content" style="margin: 10px 10px 10px 10px; padding: 10px; width: calc(100% - 300px); min-height: 100vh; overflow-y: auto; transition: all 0.3s ease-in-out;">
+        <main class="content"
+            style="margin: 10px 10px 10px 10px; padding: 10px; width: calc(100% - 300px); min-height: 100vh; overflow-y: auto; transition: all 0.3s ease-in-out;">
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>

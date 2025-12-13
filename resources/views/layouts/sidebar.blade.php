@@ -15,6 +15,9 @@
             <a href="#category" class="submenu-item" data-icon="🗂️">Category</a>
             <a href="#design-master" class="submenu-item" data-icon="🎨">Design Master</a>
             <a href="#opening-stock" class="submenu-item" data-icon="📦">Opening Stock</a>
+            <a href="{{ route('diamond_stocks.index') }}" class="submenu-item" data-icon="◇">Diamond Stock</a>
+            <a href="{{ route('karat.index') }}" class="submenu-item" data-icon="◇">Karat Stock</a>
+            <a href="{{ route('stockstatus.index') }}" class="submenu-item" data-icon="◇">Stock Status</a>
             <a href="#tunch" class="submenu-item" data-icon="🧪">Tunch</a>
             <hr class="submenu-sep" />
             <a href="#method" class="submenu-item" data-icon="⚙️">Method</a>

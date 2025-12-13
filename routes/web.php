@@ -4,8 +4,10 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiamondStockController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\KaratController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\StockStatusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -62,3 +64,18 @@ Route::post('diamond-stocks/store', [DiamondStockController::class, 'store'])->n
 Route::get('diamond-stocks/edit/{id}', [DiamondStockController::class, 'edit'])->name('diamond_stocks.edit');
 Route::put('diamond-stocks/{id}', [DiamondStockController::class, 'update'])->name('diamond_stocks.update');
 Route::delete('diamond-stocks/delete/{id}', [DiamondStockController::class, 'destroy'])->name('diamond_stocks.destroy');
+
+// Additional routes can be added here as needed    
+Route::get('/karat', [KaratController::class, 'index'])->name('karat.index');
+Route::get('/karat/create', [KaratController::class, 'create'])->name('karat.create');
+Route::post('/karat/store', [KaratController::class, 'store'])->name('karat.store');
+Route::get('/karat/edit/{id}', [KaratController::class, 'edit'])->name('karat.edit');
+Route::put('/karat/{id}', [KaratController::class, 'update'])->name('karat.update');
+Route::delete('karat/delete/{id}', [KaratController::class, 'destroy'])->name('karat.destroy');
+
+Route::get('/stockstatus', [StockStatusController::class, 'index'])->name('stockstatus.index');
+Route::get('/stockstatus/create', [stockstatusController::class, 'create'])->name('stockstatus.create');
+Route::post('/stockstatus/store', [stockstatusController::class, 'store'])->name('stockstatus.store');
+Route::get('/stockstatus/edit/{id}', [stockstatusController::class, 'edit'])->name('stockstatus.edit');
+Route::put('/stockstatus/{id}', [stockstatusController::class, 'update'])->name('stockstatus.update');
+Route::delete('stockstatus/delete/{id}', [stockstatusController::class, 'destroy'])->name('stockstatus.destroy');
