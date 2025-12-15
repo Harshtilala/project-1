@@ -88,7 +88,7 @@
 
   $(document).on('click', '[data-action="delete"]', function () {
     const id = $(this).data('id');
-    if (!confirm('Delete this user?')) return;
+    if (!confirm('Delete this diamond stock?')) return;
 
     $.ajax({
         url: `diamond-stocks/delete/${id}`,

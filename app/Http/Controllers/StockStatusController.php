@@ -17,6 +17,9 @@ class StockStatusController extends Controller
 
             // Start query
             $query = StockStatus::query();
+            $totalItems = StockStatus::count();
+            $inStock = StockStatus::where('quantity', '>=', 50)->count();
+            $lowStock = StockStatus::where('quantity', '>', 0)->where('quantity', '<', 50)->count();
 
             return DataTables::of($query)
                 ->addColumn('status', function ($stock) {
@@ -37,8 +40,11 @@ class StockStatusController extends Controller
                        <i class="fas fa-trash"></i>
                     </button>';
                 })
-
-
+                ->with([
+                    'totalItems' => $totalItems,
+                    'inStock' => $inStock,
+                    'lowStock' => $lowStock,
+                ])
                 ->rawColumns(['action', 'status'])
                 ->make(true);
         }
@@ -71,7 +77,7 @@ class StockStatusController extends Controller
         $categoryLetter = strtoupper(substr($request->category, 0, 1));
 
         // Type abbreviation (from form)
-       $typeAbbr = strtoupper(substr($request->item_name, 0, 3));
+        $typeAbbr = strtoupper(substr($request->item_name, 0, 3));
 
 
         // Generate Item Code
@@ -101,17 +107,37 @@ class StockStatusController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(StockStatus $stockStatus)
+    public function edit($id)
     {
-        //
+        $stockStatus = StockStatus::findOrFail($id);
+        return view('stock_status.edit', compact('stockStatus'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, StockStatus $stockStatus)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'item_name' => 'required',
+            'category'  => 'required',
+            'weight'    => 'required|numeric',
+            'purity'    => 'required',
+            'quantity'  => 'required|integer|min:0',
+        ]);
+
+        $stockStatus = StockStatus::findOrFail($id);
+
+        $stockStatus->item_name = $request->item_name;
+        $stockStatus->category  = $request->category;
+        $stockStatus->weight    = $request->weight;
+        $stockStatus->purity    = $request->purity;
+        $stockStatus->quantity  = $request->quantity;
+
+        $stockStatus->save();
+
+        return redirect()->route('stockstatus.index')
+            ->with('success', 'Stock status updated successfully.');
     }
 
     /**

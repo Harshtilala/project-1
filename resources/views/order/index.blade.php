@@ -592,7 +592,7 @@
 
     $(document).on('click', '[data-action="delete"]', function () {
             const id = $(this).data('id');
-            if (!confirm('Delete this user?')) return;
+            if (!confirm('Delete this order?')) return;
 
             $.ajax({
                 url: `/orders/delete/${id}`,

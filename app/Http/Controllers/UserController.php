@@ -48,7 +48,7 @@ class UserController extends Controller
             'transaction_type' => 'required|in:credit,debit',
             'designation' => 'nullable|string|max:255',
             'salary' => 'nullable|numeric',
-            'is_cad_designer' => 'nullable|boolean',
+            'is_cad_designer' => 'nullable',
             'otp_to_mobile' => 'required|in:yes,no',
         ]);
 
@@ -92,7 +92,7 @@ class UserController extends Controller
             'transaction_type' => 'required|in:credit,debit',
             'designation' => 'nullable|string|max:255',
             'salary' => 'nullable|numeric',
-            'is_cad_designer' => 'nullable|boolean',
+            'is_cad_designer' => 'nullable',
             'otp_to_mobile' => 'required|in:yes,no',
         ]);
 

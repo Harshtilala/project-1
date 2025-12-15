@@ -9,6 +9,7 @@ use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StockStatusController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserRightsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -79,3 +80,10 @@ Route::post('/stockstatus/store', [stockstatusController::class, 'store'])->name
 Route::get('/stockstatus/edit/{id}', [stockstatusController::class, 'edit'])->name('stockstatus.edit');
 Route::put('/stockstatus/{id}', [stockstatusController::class, 'update'])->name('stockstatus.update');
 Route::delete('stockstatus/delete/{id}', [stockstatusController::class, 'destroy'])->name('stockstatus.destroy');
+
+Route::get('user-rights', [UserRightsController::class, 'index'])->name('user_rights.index');
+Route::get('user-rights/create', [UserRightsController::class, 'create'])->name('user_rights.create');
+Route::post('user-rights/store', [UserRightsController::class, 'store'])->name('user_rights.store');
+Route::get('user-rights/edit/{id}', [UserRightsController::class, 'edit'])->name('user_rights.edit');
+Route::put('user-rights/{id}', [UserRightsController::class, 'update'])->name('user_rights.update');
+Route::delete('user-rights/delete/{id}', [UserRightsController::class, 'destroy'])->name('user_rights.destroy');

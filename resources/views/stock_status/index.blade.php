@@ -84,10 +84,10 @@
                                         <div class="text-uppercase text-muted"
                                             style="font-size: 10px; font-weight: 600; line-height: 1;">TOTAL ITEMS</div>
                                         <div class="d-flex align-items-center">
-                                            <span class="fw-bold me-2"
-                                                style="font-size: 18px; line-height: 1;">1,248</span>
-                                            <span class="text-success" style="font-size: 10px;"><i
-                                                    class="fas fa-arrow-up me-1"></i>12%</span>
+                                            <span class="fw-bold me-2" id="totalItems"
+                                                style="font-size: 18px; line-height: 1;">0</span>
+                                            {{-- <span class="text-success" id="totalPercent" style="font-size: 10px;"><i
+                                                    class="fas fa-arrow-up me-1"></i>0%</span> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -107,10 +107,10 @@
                                     <div class="text-uppercase text-muted"
                                         style="font-size: 10px; font-weight: 600; line-height: 1;">IN STOCK</div>
                                     <div class="d-flex align-items-center">
-                                        <span class="fw-bold me-2 text-success"
-                                            style="font-size: 18px; line-height: 1;">1,024</span>
-                                        <span class="text-success" style="font-size: 10px;"><i
-                                                class="fas fa-arrow-up me-1"></i>8%</span>
+                                        <span class="fw-bold me-2 text-success" id="inStock"
+                                            style="font-size: 18px; line-height: 1;">0</span>
+                                        {{-- <span class="text-success" id="lowStock" style="font-size: 10px;"><i
+                                                class="fas fa-arrow-up me-1"></i>0</span> --}}
                                     </div>
                                 </div>
                                 <div class="bg-success bg-opacity-10 p-1 rounded-circle ms-2"
@@ -129,10 +129,10 @@
                                     <div class="text-uppercase text-muted"
                                         style="font-size: 10px; font-weight: 600; line-height: 1;">LOW STOCK</div>
                                     <div class="d-flex align-items-center">
-                                        <span class="fw-bold me-2 text-warning"
-                                            style="font-size: 18px; line-height: 1;">45</span>
-                                        <span class="text-danger" style="font-size: 10px;"><i
-                                                class="fas fa-arrow-up me-1"></i>5</span>
+                                        <span class="fw-bold me-2 text-warning" id="lowStock"
+                                            style="font-size: 18px; line-height: 1;">0</span>
+                                        {{-- <span class="text-danger" id="lowStockPercent" style="font-size: 10px;"><i
+                                                class="fas fa-arrow-up me-1"></i>0</span> --}}
                                     </div>
                                 </div>
                                 <div class="bg-warning bg-opacity-10 p-1 rounded-circle ms-2"
@@ -328,7 +328,25 @@
         processing: true,
         serverSide: true,
         responsive: true,
-        ajax: '{{ route("stockstatus.index") }}',
+        ajax: {
+            url: '{{ route("stockstatus.index") }}',
+            dataSrc: function (json) {
+
+                // Update summary cards
+                $('#totalItems').text(json.totalItems);
+                $('#inStock').text(json.inStock);
+                $('#lowStock').text(json.lowStock);
+
+                // Simple percentage calculation
+                let total = json.totalItems || 1;
+
+                $('#totalPercent').text('100%');
+                $('#inStockPercent').text(Math.round((json.inStock / total) * 100) + '%');
+                $('#lowStockPercent').text(json.lowStock);
+
+                return json.data;
+            }
+        },
         columns: [
             { data: 'item_code', name: 'item_code' , className: 'text-center' },
             { data: 'item_name', name: 'item_name', className: 'text-center'  },
@@ -344,7 +362,7 @@
 
 $(document).on('click', '[data-action="delete"]', function () {
     const id = $(this).data('id');
-    if (!confirm('Delete this user?')) return;
+    if (!confirm('Delete this stock?')) return;
 
     $.ajax({
         url: `stockstatus/delete/${id}`,

@@ -123,7 +123,7 @@
 
      $(document).on('click', '[data-action="delete"]', function () {
     const id = $(this).data('id');
-    if (!confirm('Delete this stock?')) return;
+    if (!confirm('Delete this account?')) return;
 
     $.ajax({
         url: `accounts/delete/${id}`,

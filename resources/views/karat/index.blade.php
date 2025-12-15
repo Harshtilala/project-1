@@ -150,7 +150,7 @@
 
 $(document).on('click', '[data-action="delete"]', function () {
     const id = $(this).data('id');
-    if (!confirm('Delete this user?')) return;
+    if (!confirm('Delete this karat?')) return;
 
     $.ajax({
         url: `karat/delete/${id}`,
